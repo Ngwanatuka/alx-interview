@@ -3,7 +3,7 @@
 
 
 def pascal_triangle(n):
-
+    """creation of a pascal triangle"""
     if n <= 0:
         return []
 
