@@ -5,17 +5,15 @@
 def canUnlockAll(boxes):
     """ A method that determines if all the boxes can be opened."""
     n = len(boxes)
-    reachable = [False] * n
-    reachable[0] = True
-    changed = True
+    open_boxes = set([0])
+    stack = [0]
 
-    while changed:
-        changed = False
-        for i in range(n):
-            if reachable[i]:
-                for key in boxes[i]:
-                    if not reachable[key]:
-                        reachable[key] = True
-                        changed = True
+    while stack:
+        current_box = stack.pop()
 
-    return all(reachable)
+        for key in boxes[current_box]:
+            if key not in open_boxes and key < n:
+                open_boxes.add(key)
+                stack.append(key)
+
+    return len(open_boxes) == n
