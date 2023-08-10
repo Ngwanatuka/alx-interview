@@ -6,7 +6,7 @@ def minOperations(n):
     """ Minimum operations """
     if n <= 1:
         return 0
-    
+
     opertaions = 0
     current = 1
     buffer = 0
