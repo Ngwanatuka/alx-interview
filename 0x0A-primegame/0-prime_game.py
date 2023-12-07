@@ -1,61 +1,44 @@
-#!/usr/bi/python3
+#!/usr/bin/python3
 """
-Prime game
+Module: Game of choosing Prime numbers
 """
+
+
+def sieve_of_eratosthenes(n):
+    """Return list of prime numbers between 1 and n inclusive
+       Args:
+        n (int): upper boundary of range. lower boundary is always 1
+    """
+    is_prime = [True] * (n + 1)
+    is_prime[0] = is_prime[1] = False
+
+    for number in range(2, int(n**0.5) + 1):
+        if is_prime[number]:
+            for multiple in range(number * number, n + 1, number):
+                is_prime[multiple] = False
+
+    return [num for num in range(2, n + 1) if is_prime[num]]
 
 
 def isWinner(x, nums):
     """
-    Determine the winner of each round
-     and return the player with the most wins.
-
-    Parameters:
-    - x (int): The number of rounds.
-    - nums (list): An array of `n` for each round.
-
-    Returns:
-    - str or None: The name of the player with the most wins.
-     Returns `None` in case of a tie.
+    Determines winner of Prime Game
+    Args:
+        x (int): no. of rounds of game
+        nums (int): upper limit of range for each round
+    Return:
+        Name of winner (Maria or Ben) or None if winner cannot be found
     """
-    def is_prime(num, primes):
-        for p in primes:
-            if p * p > num:
-                break
-            if num % p == 0:
-                return False
-        return True
-
-    def count_primes(n, primes):
-        count = 0
-        for i in range(2, n + 1):
-            if is_prime(i, primes):
-                count += 1
-        return count
-
-    maria_wins = 0
-    ben_wins = 0
-
-    max_num = max(nums)
-    sieve = [True] * (max_num + 1)
-    sieve[0] = sieve[1] = False
-    primes = []
-
-    for i in range(2, int(max_num**0.5) + 1):
-        if sieve[i]:
-            primes.append(i)
-            for j in range(i * i, max_num + 1, i):
-                sieve[j] = False
-
-    for n in nums:
-        primes_count = count_primes(n, primes)
-        if primes_count % 2 == 0:
-            ben_wins += 1
-        else:
-            maria_wins += 1
-
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif ben_wins > maria_wins:
-        return "Ben"
-    else:
+    if x is None or nums is None or x == 0 or not nums:
         return None
+
+    Maria = Ben = 0
+
+    for num in nums:
+        prime_numbers = sieve_of_eratosthenes(num)
+        if len(prime_numbers) % 2 == 0:
+            Ben += 1
+        else:
+            Maria += 1
+
+    return 'Maria' if Maria > Ben else ('Ben' if Ben > Maria else None)
