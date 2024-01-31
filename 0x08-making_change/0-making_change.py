@@ -12,7 +12,7 @@ def makeChange(coins, total):
     """
     if total <= 0:
         return 0
-    
+
     coins.sort(reverse=True)
     coin_count = 0
 
@@ -22,6 +22,5 @@ def makeChange(coins, total):
 
         coin_count += num_coins
         total = remaining_total
-        
+
     return coin_count if total == 0 else -1
-    
