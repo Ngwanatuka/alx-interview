@@ -8,10 +8,11 @@ def island_perimeter(grid):
     of the island described in grid
     """
     def dfs(grid, i, j):
-        if i < 0\
-                or i >= len(grid)\
-            or j < 0 or j >= len(grid[0])\
-                or grid[i][j] == 0:
+        if (
+            i < 0 or i >= len(grid) or
+            j < 0 or j >= len(grid[0]) or
+            grid[i][j] == 0
+        ):
             return 1  # perimeter
         if grid[i][j] == -1:  # already visited
             return 0
