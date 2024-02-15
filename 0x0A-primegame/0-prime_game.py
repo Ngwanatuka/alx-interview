@@ -3,6 +3,9 @@
 
 
 def isWinner(x, nums):
+    """
+    Calculate the winner of the game
+    """
     def calculate_winner(num, memo):
         if num < 2:
             return "Ben"
